@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import OptQrCode from "./OptQrCode";
 import Otp from "./Opt";
+import OtpAuthUtils from "@/common/OtpAuthUtils";
 import type { OtpInstance } from "./Types";
 import UpdateOtpAuth from "./UpdateOtpAuth";
 
@@ -26,10 +27,14 @@ const OptCard = (props: {
     return () => clearInterval(interval);
   }, []);
 
-  const onRemove = async () => {
+  const onRemove = () => {
     if (!window.confirm("Are you sure you want to remove this account?")) return;
-    await chrome.storage.local.remove(props.otpInstance.id);
-    props.fetchOtpInstances();
+    chrome.storage.local.get(OtpAuthUtils.OTP_INSTANCE_STORAGE_KEY).then(storage => {
+      const data = (storage[OtpAuthUtils.OTP_INSTANCE_STORAGE_KEY] as OtpInstance[]) ?? [];
+      const updated = data.filter(({ id }) => id !== props.otpInstance.id);
+      chrome.storage.local.set({ [OtpAuthUtils.OTP_INSTANCE_STORAGE_KEY]: updated });
+      props.fetchOtpInstances();
+    });
   }
 
   const generate = async () => {
