@@ -20,7 +20,13 @@ const Settings = (props: {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `otp-backup-${Date.now()}.txt`;
+    const formattedDate = new Date()
+      .toISOString()
+      .replace(/-/g, "")
+      .replace("T", "_")
+      .replace(/:/g, "")
+      .replace(/\.\d{3}Z$/, "");
+    link.download = `otp-backup-${formattedDate}.txt`;
     link.click();
     URL.revokeObjectURL(url);
   }
