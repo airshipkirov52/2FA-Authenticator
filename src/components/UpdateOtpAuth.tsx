@@ -1,3 +1,4 @@
+import OtpAuthUtils from "@/common/OtpAuthUtils";
 import type { OtpInstance } from "./Types";
 import { useState } from "react";
 
@@ -18,8 +19,10 @@ const UpdateOtpAuth = (props: {
   const onSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     const id = otpInstance.id;
+    const optInstances = await OtpAuthUtils.findAllOtpInstances();
+    const newOptInstances = optInstances.map((o) => o.id === id ? { ...o, ...otpInstance } : o);
     await chrome.storage.local.set({
-      [id]: { ...otpInstance }
+      [OtpAuthUtils.OTP_INSTANCE_STORAGE_KEY]: [...newOptInstances],
     });
     props.fetchOtpInstances();
     props.onCloseModal();
