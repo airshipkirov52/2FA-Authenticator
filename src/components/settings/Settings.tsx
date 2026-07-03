@@ -77,7 +77,7 @@ const Settings = (props: {
       </div>
       <div className="drawer-side z-20">
         <label htmlFor="Settings" aria-label="close sidebar" className="drawer-overlay"></label>
-        <div className="min-h-full w-full bg-white">
+        <div className="min-h-full w-full bg-base-100">
           <div className="relative px-4 py-1 border-b border-gray-300 h-10">
             <label htmlFor="Settings" className="drawer-button">
               <span className="absolute top-2 left-4 cursor-pointer text-neutral-600">

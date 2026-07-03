@@ -32,7 +32,7 @@ const Home = (props: {
   }
 
   return (<>
-    <section className="min-h-120 max-h-[calc(100vh-2.5rem)] overflow-y-auto scrollbar">
+    <section className="min-h-120 max-h-[calc(100vh-2.5rem)] overflow-y-auto scrollbar bg-base-100">
       <div className="relative px-4 py-2">
         <div className="absolute z-10 top-1/2 -translate-y-1/2 left-8 text-neutral-500">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em">
